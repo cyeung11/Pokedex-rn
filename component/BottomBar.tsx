@@ -9,10 +9,12 @@ const BottomBar: React.FC<{title: string;}> = ({title}) => {
 
 const styles = StyleSheet.create({
     bottom : {
-        height: 60,
-        padding: 15,
+        height: 55,
+        paddingHorizontal: 15,
         justifyContent: 'center',
-        backgroundColor: 'crimson'
+        backgroundColor: 'crimson',
+        borderTopStartRadius: 15,
+        borderTopEndRadius: 15
     },
     bottomTitle: {
         color: 'white',

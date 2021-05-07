@@ -4,6 +4,7 @@ import { createStackNavigator, StackNavigationProp } from '@react-navigation/sta
 import { ImageSourcePropType, StatusBar } from 'react-native';
 import HomeScreen from './screen/HomeScreen';
 import PokemonScreen from './screen/PokemonScreen';
+import { Pokemon } from './component/PokeItem';
 
 
 const MainStack = createStackNavigator();
@@ -11,9 +12,7 @@ const MainStack = createStackNavigator();
 export type PokeScreenList = {
   HomeScreen: undefined,
   PokemonScreen: {
-    pokemonId: string,
-    name: string,
-    image: ImageSourcePropType
+    pokemon: Pokemon
   };
 }
 

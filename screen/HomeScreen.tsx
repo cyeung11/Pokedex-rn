@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {View, StyleSheet, SafeAreaView, ImageSourcePropType, ListRenderItem, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+import {View, StyleSheet, SafeAreaView, ImageSourcePropType, ListRenderItem, FlatList, Dimensions, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { NavProps } from '../App';
 import BottomBar from '../component/BottomBar';
-import PokeItem from '../component/PokeItem';
+import PokeItem, { Pokemon } from '../component/PokeItem';
 import PokeData from '../pokedex/PokeData';
 
 const HomeScreen: React.FC<NavProps<'HomeScreen'>> = ({navigation}) => {
@@ -22,25 +22,25 @@ const HomeScreen: React.FC<NavProps<'HomeScreen'>> = ({navigation}) => {
       };
     })
   
-    const renderRows: ListRenderItem<{id: string, name: string, image: ImageSourcePropType}> = ({ item }) => (
-      <TouchableOpacity
-        style={{backgroundColor: 'white'}}
-        onPress={()=>{
-         navigation.navigate('PokemonScreen', {pokemonId: item.id, name: item.name, image: item.image});
-        }}>
-        <PokeItem name={item.name} image={item.image} columnWidth={screenWidth}/>
-      </TouchableOpacity>
-    );
-  
     return (
       <SafeAreaView style={styles.safe}>
         <View style={styles.container}>
-          <View style={{flex: 1, backgroundColor:'white'}}>
+          <View style={{flex: 1, backgroundColor:'aliceblue', justifyContent:'center', alignItems: 'center'}}>
+            <Image 
+              source={require('../image/pokeball.png')} 
+              style={{width:'60%', height:'100%', position:'absolute', resizeMode: 'contain'}}/>
             <FlatList
               data={PokeData.PokeData}
               numColumns={columnCount}
-              renderItem={renderRows}
-              columnWrapperStyle={{flex:1, justifyContent: 'space-around'}}
+              renderItem={({ item }) => {
+                return <TouchableOpacity
+                  onPress={()=>{
+                  navigation.navigate('PokemonScreen', {pokemon: item});
+                  }}>
+                  <PokeItem pokemon={item} columnWidth={screenWidth}/>
+                </TouchableOpacity>
+              }}
+              columnWrapperStyle={{flex:1, justifyContent: 'flex-start'}}
             />
           </View>
         <BottomBar title={'Pokedex'}/>
@@ -55,6 +55,12 @@ const HomeScreen: React.FC<NavProps<'HomeScreen'>> = ({navigation}) => {
     },
     container: {
       flex: 1, justifyContent: 'flex-end', flexDirection: 'column',
+    },
+    bg: {
+      flex: 1,
+      resizeMode: "cover",
+      justifyContent: "center",
+      alignItems: 'center',
     }
   })
   
